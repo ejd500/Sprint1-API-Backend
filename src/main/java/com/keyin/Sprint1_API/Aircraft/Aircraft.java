@@ -3,23 +3,23 @@ package com.keyin.Sprint1_API.Aircraft;
 import com.keyin.Sprint1_API.Airport.Airport;
 import com.keyin.Sprint1_API.Passenger.Passenger;
 
-// DO YOU SEE THIS CORINA???
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Aircraft {
 
+    private static int id_increment = 1;
+
     private int aircraft_id;
-    private String airlineType;
+    private String aircraftType;
     private String airlineName;
     private int numPassengers;
     private List<Passenger> passengers;
     private List<Airport> airports;
 
-    public Aircraft(int aircraft_id, String airlineType, String airlineName, int numPassengers){
-        this.aircraft_id = aircraft_id;
-        this.airlineType = airlineType;
+    public Aircraft(String aircraftType, String airlineName, int numPassengers){
+        this.aircraft_id = id_increment++;
+        this.aircraftType = aircraftType;
         this.airlineName = airlineName;
         this.numPassengers = numPassengers;
         this.passengers = new ArrayList<Passenger>();
@@ -34,12 +34,12 @@ public class Aircraft {
         this.aircraft_id = aircraft_id;
     }
 
-    public String getAirlineType() {
-        return airlineType;
+    public String getAircraftType() {
+        return aircraftType;
     }
 
-    public void setAirlineType(String airlineType) {
-        this.airlineType = airlineType;
+    public void setAircraftType(String aircraftType) {
+        this.aircraftType = aircraftType;
     }
 
     public String getAirlineName() {

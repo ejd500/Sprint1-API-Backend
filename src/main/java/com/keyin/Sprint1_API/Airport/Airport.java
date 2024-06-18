@@ -8,18 +8,20 @@ import java.util.List;
 
 public class Airport {
 
+    private static int id_increment = 1;
+
     private int airport_id;
     private String name;
     private String code;
     private City city;
-    private List<Aircraft> aircrafts;
+    private List<Aircraft> aircraftList;
 
-    public Airport(int airport_id, String name, String code, City city){
-        this.airport_id = airport_id;
+    public Airport(String name, String code, City city){
+        this.airport_id = id_increment++;
         this.name = name;
         this.code = code;
         this.city = city;
-        this.aircrafts = new ArrayList<Aircraft>();
+        this.aircraftList = new ArrayList<Aircraft>();
     }
 
     public int getAirport_id() {
@@ -54,11 +56,11 @@ public class Airport {
         this.city = city;
     }
 
-    public List<Aircraft> getAircrafts() {
-        return aircrafts;
+    public List<Aircraft> getAircraftList() {
+        return aircraftList;
     }
 
-    public void setAircrafts(List<Aircraft> aircrafts) {
-        this.aircrafts = aircrafts;
+    public void setAircraftList(List<Aircraft> aircraftList) {
+        this.aircraftList = aircraftList;
     }
 }

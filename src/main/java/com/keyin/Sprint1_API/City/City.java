@@ -7,14 +7,16 @@ import java.util.List;
 
 public class City {
 
+    private static int id_increment =1;
+
     private int city_id;
     private String name;
     private String province;
     private int population;
     private List<Airport> airports;
 
-    public City(int city_id, String name, String province, int population) {
-        this.city_id = city_id;
+    public City(String name, String province, int population) {
+        this.city_id = id_increment++;
         this.name = name;
         this.province = province;
         this.population = population;
