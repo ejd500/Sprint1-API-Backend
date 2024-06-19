@@ -1,9 +1,6 @@
 package com.keyin.Sprint1_API.Aircraft;
 
 import com.keyin.Sprint1_API.Airport.Airport;
-import com.keyin.Sprint1_API.Passenger.Passenger;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class Aircraft {
@@ -14,16 +11,14 @@ public class Aircraft {
     private String aircraftType;
     private String airlineName;
     private int numPassengers;
-    private List<Passenger> passengers;
     private List<Airport> airports;
 
-    public Aircraft(String aircraftType, String airlineName, int numPassengers){
+    public Aircraft(String aircraftType, String airlineName, int numPassengers, List<Airport> airports){
         this.aircraft_id = id_increment++;
         this.aircraftType = aircraftType;
         this.airlineName = airlineName;
         this.numPassengers = numPassengers;
-        this.passengers = new ArrayList<Passenger>();
-        this.airports = new ArrayList<Airport>();
+        this.airports = airports;
     }
 
     public int getAircraft_id() {
@@ -58,14 +53,6 @@ public class Aircraft {
         this.numPassengers = numPassengers;
     }
 
-    public List<Passenger> getPassengers() {
-        return passengers;
-    }
-
-    public void setPassengers(List<Passenger> passengers) {
-        this.passengers = passengers;
-    }
-
     public List<Airport> getAirports() {
         return airports;
     }
@@ -73,4 +60,5 @@ public class Aircraft {
     public void setAirports(List<Airport> airports) {
         this.airports = airports;
     }
+
 }
