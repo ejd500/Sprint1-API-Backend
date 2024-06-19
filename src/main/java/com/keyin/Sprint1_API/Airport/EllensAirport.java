@@ -1,12 +1,8 @@
 package com.keyin.Sprint1_API.Airport;
 
-import com.keyin.Sprint1_API.Aircraft.Aircraft;
 import com.keyin.Sprint1_API.City.City;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Airport {
+public class EllensAirport {
 
     private static int id_increment = 1;
 
@@ -14,15 +10,15 @@ public class Airport {
     private String name;
     private String code;
     private City city;
-    private List<Aircraft> aircraftList;
+//    private List<Aircraft> aircraftList;
 
-    public Airport(String name, String code, City city){
-        this.airport_id = id_increment++;
-        this.name = name;
-        this.code = code;
-        this.city = city;
-        this.aircraftList = new ArrayList<Aircraft>();
-    }
+//    public Airport(String name, String code, City city){
+//        this.airport_id = id_increment++;
+//        this.name = name;
+//        this.code = code;
+//        this.city = city;
+//        this.aircraftList = new ArrayList<Aircraft>();
+//    }
 
     public int getAirport_id() {
         return airport_id;
@@ -56,11 +52,11 @@ public class Airport {
         this.city = city;
     }
 
-    public List<Aircraft> getAircraftList() {
-        return aircraftList;
-    }
+//    public List<Aircraft> getAircraftList() {
+//        return aircraftList;
+//    }
 
-    public void setAircraftList(List<Aircraft> aircraftList) {
-        this.aircraftList = aircraftList;
-    }
+//    public void setAircraftList(List<Aircraft> aircraftList) {
+//        this.aircraftList = aircraftList;
+//    }
 }

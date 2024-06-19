@@ -1,26 +1,20 @@
 package com.keyin.Sprint1_API.City;
 
-import com.keyin.Sprint1_API.Airport.Airport;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class City {
-
-    private static int id_increment =1;
+    private static int nextId = 1; // Static field to keep track of the next ID to be assigned
 
     private int city_id;
     private String name;
     private String province;
     private int population;
-    private List<Airport> airports;
+//    private ArrayList<Airport> airports;
 
     public City(String name, String province, int population) {
-        this.city_id = id_increment++;
+        this.city_id = nextId++;
         this.name = name;
         this.province = province;
         this.population = population;
-        this.airports = new ArrayList<Airport>();
+//        this.airports = new ArrayList<Airport>();
     }
 
     public int getCity_id() {
@@ -55,11 +49,11 @@ public class City {
         this.population = population;
     }
 
-    public List<Airport> getAirports() {
-        return airports;
-    }
+//    public ArrayList<Airport> getAirports() {
+//        return airports;
+//    }
 
-    public void setAirports(List<Airport> airports) {
-        this.airports = airports;
-    }
+//    public void setAirports(ArrayList<Airport> airports) {
+//        this.airports = airports;
+//    }
 }

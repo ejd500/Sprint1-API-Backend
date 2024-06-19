@@ -1,12 +1,12 @@
 package com.keyin.Sprint1_API.Aircraft;
 
-import com.keyin.Sprint1_API.Airport.Airport;
+import com.keyin.Sprint1_API.Airport.EllensAirport;
 import com.keyin.Sprint1_API.Passenger.Passenger;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Aircraft {
+public class EllensAircraft {
 
     private static int id_increment = 1;
 
@@ -15,15 +15,15 @@ public class Aircraft {
     private String airlineName;
     private int numPassengers;
     private List<Passenger> passengers;
-    private List<Airport> airports;
+    private List<EllensAirport> airports;
 
-    public Aircraft(String aircraftType, String airlineName, int numPassengers){
+    public EllensAircraft(String aircraftType, String airlineName, int numPassengers){
         this.aircraft_id = id_increment++;
         this.aircraftType = aircraftType;
         this.airlineName = airlineName;
         this.numPassengers = numPassengers;
         this.passengers = new ArrayList<Passenger>();
-        this.airports = new ArrayList<Airport>();
+        this.airports = new ArrayList<EllensAirport>();
     }
 
     public int getAircraft_id() {
@@ -66,11 +66,11 @@ public class Aircraft {
         this.passengers = passengers;
     }
 
-    public List<Airport> getAirports() {
+    public List<EllensAirport> getAirports() {
         return airports;
     }
 
-    public void setAirports(List<Airport> airports) {
+    public void setAirports(List<EllensAirport> airports) {
         this.airports = airports;
     }
 }
