@@ -1,8 +1,7 @@
 package com.keyin.Sprint1_API.City;
 
 public class City {
-
-    private static int id_increment = 1;
+    private static int nextId = 1; // Static field to keep track of the next ID to be assigned
 
     private int city_id;
     private String name;
@@ -10,7 +9,7 @@ public class City {
     private int population;
 
     public City(String name, String province, int population) {
-        this.city_id = id_increment++;
+        this.city_id = nextId++;
         this.name = name;
         this.province = province;
         this.population = population;
@@ -47,6 +46,5 @@ public class City {
     public void setPopulation(int population) {
         this.population = population;
     }
-
 
 }
