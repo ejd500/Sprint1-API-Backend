@@ -1,5 +1,7 @@
 package com.keyin.Sprint1_API.City;
 
+import java.util.List;
+
 public class City {
     private static int nextId = 1; // Static field to keep track of the next ID to be assigned
 
@@ -9,10 +11,22 @@ public class City {
     private int population;
 
     public City(String name, String province, int population) {
-        this.city_id = nextId++;
         this.name = name;
         this.province = province;
         this.population = population;
+        CityService cityService = new CityService();
+        List<City> cities = cityService.getAllCities();
+        if (cities.isEmpty()){
+            this.city_id = nextId;
+        } else {
+            for (City city : cities){
+                if (city.getName().equals(this.name) && city.getProvince().equals(this.province) && city.getPopulation() == this.population){
+                    this.city_id = city.getCity_id();
+                } else {
+                    this.city_id = nextId++;
+                }
+            }
+        }
     }
 
     public int getCity_id() {
