@@ -10,7 +10,7 @@ public class CityController {
     @Autowired
     private CityService cityService;
 
-    @PostMapping("create_city")
+    @PostMapping("city")
     public City createCity(@RequestBody City newCity) {
         return cityService.createCity(newCity);
     }
@@ -21,13 +21,13 @@ public class CityController {
     }
 
     @GetMapping("city/{index}")
-    public City getCity(@PathVariable Integer index) {
-        return CityService.getCity(index);
+    public City getCityByIndex(@PathVariable Integer index) {
+        return CityService.getCityByIndex(index);
     }
 
     @PutMapping("city/{index}")
-    public City updateCity(@PathVariable Integer index, @RequestBody City updatedCity) {
-        return cityService.updateCity(index, updatedCity);
+    public City updateCityByIndex(@PathVariable Integer index, @RequestBody City updatedCity) {
+        return cityService.updateCityByIndex(index, updatedCity);
     }
 
     @DeleteMapping("city/{index}")
