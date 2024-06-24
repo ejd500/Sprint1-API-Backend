@@ -7,20 +7,18 @@ import java.util.List;
 
 public class Passenger {
 
-    private static int nextId = 1;
-
     private int passenger_id;
     private String firstName;
     private String lastName;
     private String phoneNum;
     private City city;
 
-    public Passenger(String firstName, String lastName, String phoneNum, City city) {
+    public Passenger(int passenger_id, String firstName, String lastName, String phoneNum, City city) {
+        this.passenger_id = passenger_id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNum = phoneNum;
-        this.city = getOrCreateCity(city);
-        this.passenger_id = nextId++;
+        this.city = city;
     }
 
 
@@ -62,19 +60,6 @@ public class Passenger {
 
     public void setCity (City city){
         this.city = city;
-    }
-
-    private City getOrCreateCity(City city) {
-        CityService cityService = new CityService();
-        List<City> cities = cityService.getAllCities();
-        for (City c : cities) {
-            if (c.getName().equals(city.getName()) && c.getProvince().equals(city.getProvince()) && c.getPopulation() == city.getPopulation()) {
-                return c;
-            }
-        }
-
-        cities.add(city);
-        return city;
     }
 
 }
