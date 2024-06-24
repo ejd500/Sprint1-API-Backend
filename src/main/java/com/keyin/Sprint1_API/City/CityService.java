@@ -27,11 +27,11 @@ public class CityService {
         return cities;
     }
 
-    public static City getCity(int index){
+    public static City getCityByIndex(int index){
         return cities.get(index);
     }
 
-    public City updateCity(int index, City updatedCity) {
+    public City updateCityByIndex(int index, City updatedCity) {
         City cityToUpdate = cities.get(index);
 
         cityToUpdate.setName(updatedCity.getName());

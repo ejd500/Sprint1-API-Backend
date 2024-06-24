@@ -40,14 +40,52 @@ public class PassengerService {
         return passengers;
     }
 
-    public boolean passengerIsFoundInPassengers(Passenger passenger) {
-        return passengers.contains(passenger);
+    public Passenger getPassengerByIndex(int index) {
+        if(index >= passengers.size()){
+            throw new IndexOutOfBoundsException();
+        } else {
+            return passengers.get(index);
+        }
     }
 
-    public void deletePassengerByIndex(int index) {
-        passengers.remove(index);
+    public Passenger getPassengerByPassengerId(Integer passengerId) {
+        for(Passenger passenger : passengers){
+            if (passenger.getPassenger_id() == passengerId){
+                return passenger;
+            }
+        }
+        return null;
     }
-    public void deletePassengerByPassenger(Passenger passenger){
-        passengers.remove(passenger);
+
+    public Passenger updatePassengerByPassengerId(Integer passengerId, Passenger updatedPassenger) {
+        for(Passenger passenger: passengers){
+            if(passenger.getPassenger_id() == passengerId){
+                passenger.setFirstName(updatedPassenger.getFirstName());
+                passenger.setLastName(updatedPassenger.getLastName());
+                passenger.setPhoneNum(updatedPassenger.getPhoneNum());
+                if(passenger.getCity().getName().equalsIgnoreCase(updatedPassenger.getCity().getName()) &&
+                    passenger.getCity().getProvince().equalsIgnoreCase(updatedPassenger.getCity().getProvince()) &&
+                        passenger.getCity().getPopulation()==updatedPassenger.getCity().getPopulation()
+                ){
+//                    SKIP
+                } else {
+                    City city = cityService.createCity(updatedPassenger.getCity());
+                    passenger.setCity(city);
+                }
+                return passenger;
+            }
+        }
+        return null;
     }
+
+    public void deletePassengerByPassengerId(int passenger_id){
+        for (Passenger passenger : passengers){
+            if (passenger.getPassenger_id() == passenger_id){
+                passengers.remove(passenger);
+            }
+        }
+
+    }
+
+
 }
