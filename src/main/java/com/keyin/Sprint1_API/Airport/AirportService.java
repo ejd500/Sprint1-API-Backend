@@ -1,22 +1,29 @@
 package com.keyin.Sprint1_API.Airport;
 
 import com.keyin.Sprint1_API.City.City;
+import com.keyin.Sprint1_API.City.CityService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class AirportService {
 
+    private int nextId = 1;
+
+    @Autowired
+    private CityService cityService;
+
     private List<Airport> airportList = new ArrayList<>();
-    private List<City> cities = new ArrayList<>();
 
     public Airport getAirport(Integer index){
         if (index >= 0 && index < airportList.size()) {
             return airportList.get(index);
         } else {
-            return null; // index not found
+            throw new IndexOutOfBoundsException("Index " + index + " is out of bounds.");
         }
     }
 
@@ -24,29 +31,20 @@ public class AirportService {
         if (airport_id >= 1 && airport_id <= airportList.size()) {
             return airportList.get(airport_id - 1);
         } else {
-            return null; // airport_id not found
+            throw new NoSuchElementException("Airport ID " + airport_id + " was not found.");
         }
     }
 
     public Airport createAirport(Airport newAirport) {
-        City existingCity = findCityByName(newAirport.getCity().getName());
-
-        if (existingCity == null) {
-            cities.add(newAirport.getCity());
-        } else {
-            newAirport.setCity(existingCity);
-        }
-        airportList.add(newAirport);
-        return newAirport;
-    }
-
-    public City findCityByName(String cityName) {
-        for (City city : cities) {
-            if (city.getName().equalsIgnoreCase(cityName)) {
-                return city;
+        for (Airport airport: airportList){
+            if (airport.getCode().equalsIgnoreCase(newAirport.getCode())){
+                return airport;
             }
         }
-        return null; // city not found
+        City city = cityService.createCity(newAirport.getCity());
+        Airport airportToCreate = new Airport(nextId++, newAirport.getName(), newAirport.getCode(),city);
+        airportList.add(airportToCreate);
+        return airportToCreate;
     }
 
     public List<Airport> getAirportsByCityName(String cityName) {
@@ -67,13 +65,8 @@ public class AirportService {
         Airport airportToUpdate = airportList.get(index);
         airportToUpdate.setName(updatedAirport.getName());
         airportToUpdate.setCode(updatedAirport.getCode());
-        City existingCity = findCityByName(updatedAirport.getCity().getName());
-        if (existingCity == null) {
-            cities.add(updatedAirport.getCity());
-        } else {
-            updatedAirport.setCity(existingCity);
-        }
-        airportToUpdate.setCity(updatedAirport.getCity());
+        City city = cityService.createCity(updatedAirport.getCity());
+        airportToUpdate.setCity(city);
         return airportToUpdate;
     }
 
@@ -81,5 +74,14 @@ public class AirportService {
         Airport airportToRemove = airportList.get(index);
         airportList.remove(airportToRemove);
         return airportToRemove;
+    }
+
+    public Airport getAirportByCode(String code) {
+        for (Airport airport : airportList) {
+            if (airport.getCode().equalsIgnoreCase(code)) {
+                return airport;
+            }
+        }
+       return null;
     }
 }
