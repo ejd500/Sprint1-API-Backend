@@ -3,18 +3,19 @@ package com.keyin.Sprint1_API.City;
 import java.util.List;
 
 public class City {
-    private static int nextId = 1; // Static field to keep track of the next ID to be assigned
+    //private static int nextId = 1; // Static field to keep track of the next ID to be assigned
 
     private int city_id;
     private String name;
     private String province;
     private int population;
 
-    public City(String name, String province, int population) {
+    public City(String name, String province, int population, int city_id) {
         this.name = name;
         this.province = province;
         this.population = population;
-        CityService cityService = new CityService();
+        this.city_id  = city_id;
+        /*CityService cityService = new CityService();
         List<City> cities = cityService.getAllCities();
         if (cities.isEmpty()){
             this.city_id = nextId;
@@ -26,7 +27,7 @@ public class City {
                     this.city_id = nextId++;
                 }
             }
-        }
+        }*/
     }
 
     public int getCity_id() {

@@ -7,11 +7,20 @@ import java.util.List;
 
 @Service
 public class CityService {
+
+    private int nextId = 1;
+
     private static List<City> cities = new ArrayList<>();
 
     public City createCity(City newCity){
-        cities.add(newCity);
-        return newCity;
+        for(City city: cities){
+            if (city.getName().equalsIgnoreCase(newCity.getName())){
+                return city;
+            }
+        }
+        City cityToCreate = new City(newCity.getName(), newCity.getProvince(), newCity.getPopulation(),nextId++);
+        cities.add(cityToCreate);
+        return cityToCreate;
     }
 
     public List<City> getAllCities(){

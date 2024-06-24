@@ -1,11 +1,8 @@
 package com.keyin.Sprint1_API.Aircraft;
-
 import com.keyin.Sprint1_API.Airport.Airport;
 import java.util.List;
 
 public class Aircraft {
-
-    private static int id_increment = 1;
 
     private int aircraft_id;
     private String aircraftType;
@@ -13,8 +10,8 @@ public class Aircraft {
     private int numPassengers;
     private List<Airport> airports;
 
-    public Aircraft(String aircraftType, String airlineName, int numPassengers, List<Airport> airports){
-        this.aircraft_id = id_increment++;
+    public Aircraft(int aircraft_id, String aircraftType, String airlineName, int numPassengers, List <Airport> airports){
+        this.aircraft_id = aircraft_id;
         this.aircraftType = aircraftType;
         this.airlineName = airlineName;
         this.numPassengers = numPassengers;
