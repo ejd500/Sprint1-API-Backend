@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -160,5 +161,20 @@ public class AircraftService {
             throw new NoSuchElementException("Aircraft ID " + aircraftId + " was not found.");
         }
     }
+
+    public void removeAirportFromAllAircraftAirportList(Airport airportToRemove) {
+        for (Aircraft aircraft : aircraftList) {
+            List<Airport> airports = aircraft.getAirports();
+            List<Airport> updatedAirports = new ArrayList<>();
+            for (Airport airport : airports) {
+                if (airportToRemove.getAirport_id() != airport.getAirport_id()) {
+                    updatedAirports.add(airport);
+                }
+            }
+            aircraft.setAirports(updatedAirports);
+        }
+    }
+
+
 
 }
