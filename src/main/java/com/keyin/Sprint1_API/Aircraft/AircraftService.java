@@ -2,6 +2,8 @@ package com.keyin.Sprint1_API.Aircraft;
 
 import com.keyin.Sprint1_API.Airport.Airport;
 import com.keyin.Sprint1_API.Airport.AirportService;
+import com.keyin.Sprint1_API.Passenger.Passenger;
+import com.keyin.Sprint1_API.Passenger.PassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,8 @@ public class AircraftService {
 
     @Autowired
     private AirportService airportService;
+    @Autowired
+    private PassengerService passengerService;
 
     private int nextId = 1;
 
@@ -53,11 +57,30 @@ public class AircraftService {
             airportList.add(newAirport);
         }
         newAircraft.setAirports(airportList);
-        Aircraft aircraftToCreate = new Aircraft(nextId++, newAircraft.getAircraftType(), newAircraft.getAirlineName(), newAircraft.getNumPassengers(), newAircraft.getAirports());
+
+        List<Passenger> passengerList = new ArrayList<>();
+        for(Passenger passenger : newAircraft.getPassengers()){
+            Passenger newPassenger = checkPassenger(passenger);
+            passengerList.add(newPassenger);
+        }
+        newAircraft.setPassengers(passengerList);
+
+        Aircraft aircraftToCreate = new Aircraft(nextId++, newAircraft.getAircraftType(), newAircraft.getAirlineName(), newAircraft.getNumPassengers(), newAircraft.getAirports(), newAircraft.getPassengers());
         aircraftList.add(aircraftToCreate);
         return aircraftToCreate;
     }
 
+    private Passenger checkPassenger(Passenger passenger) {
+        Passenger existingPassenger = null;
+        if(passenger.getPassenger_id() > 0){
+            existingPassenger = passengerService.getPassengerByPassengerId(passenger.getPassenger_id());
+        }
+        if(existingPassenger != null){
+            return existingPassenger;
+        } else {
+            return passengerService.createPassenger(passenger);
+        }
+  
     public Aircraft addAirportToAircraft(int aircraftId, Airport airport) {
         if (aircraftId >= 1 && aircraftId <= aircraftList.size()){
             for (Aircraft aircraft : aircraftList) {
