@@ -72,14 +72,15 @@ public class AircraftService {
 
     private Passenger checkPassenger(Passenger passenger) {
         Passenger existingPassenger = null;
-        if(passenger.getPassenger_id() > 0){
+        if (passenger.getPassenger_id() > 0) {
             existingPassenger = passengerService.getPassengerByPassengerId(passenger.getPassenger_id());
         }
-        if(existingPassenger != null){
+        if (existingPassenger != null) {
             return existingPassenger;
         } else {
             return passengerService.createPassenger(passenger);
         }
+    }
   
     public Aircraft addAirportToAircraft(int aircraftId, Airport airport) {
         if (aircraftId >= 1 && aircraftId <= aircraftList.size()){
