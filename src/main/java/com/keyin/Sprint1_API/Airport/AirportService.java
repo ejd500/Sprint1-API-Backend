@@ -70,10 +70,33 @@ public class AirportService {
         return airportToUpdate;
     }
 
-    public Airport deleteAirport(Integer index){
-        Airport airportToRemove = airportList.get(index);
-        airportList.remove(airportToRemove);
-        return airportToRemove;
+    public Airport updateAirportByAirportId(Integer airport_id, Airport updatedAirport){
+        Airport airportToUpdate = airportList.get(airport_id - 1);
+        airportToUpdate.setName(updatedAirport.getName());
+        airportToUpdate.setCode(updatedAirport.getCode());
+        City city = cityService.createCity(updatedAirport.getCity());
+        airportToUpdate.setCity(city);
+        return airportToUpdate;
+    }
+
+    public Airport deleteAirport(Integer index) {
+        if (index >= 0 && index < airportList.size()) {
+            Airport airportToRemove = airportList.get(index);
+            airportList.remove(airportToRemove);
+            return airportToRemove;
+        } else {
+            throw new NoSuchElementException("Index " + index + " is out of bounds.");
+        }
+    }
+
+    public Airport deleteAirportByAirportId(Integer airport_id) {
+        if (airport_id >= 1 && airport_id <= airportList.size()) {
+            Airport airportToRemove = airportList.get(airport_id - 1);
+            airportList.remove(airportToRemove);
+            return airportToRemove;
+        } else {
+            throw new NoSuchElementException("Airport ID " + airport_id + " was not found.");
+        }
     }
 
     public Airport getAirportByCode(String code) {

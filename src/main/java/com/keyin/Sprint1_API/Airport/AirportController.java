@@ -42,9 +42,19 @@ public class AirportController {
         return airportService.updateAirport(index, updatedAirport);
     }
 
+    @PutMapping("airport/id/{airport_id}")
+    public Airport updateAirportByAirportId(@PathVariable Integer airport_id, @RequestBody Airport updatedAirport){
+        return airportService.updateAirportByAirportId(airport_id,updatedAirport);
+    }
+
     @DeleteMapping("airport/{index}")
     public Airport deleteAirport(@PathVariable Integer index){
         return airportService.deleteAirport(index);
+    }
+
+    @DeleteMapping("airport/id/{airport_id}")
+    public Airport deleteAirportByAirportId(@PathVariable Integer airport_id){
+        return airportService.deleteAirportByAirportId(airport_id);
     }
 
 }
