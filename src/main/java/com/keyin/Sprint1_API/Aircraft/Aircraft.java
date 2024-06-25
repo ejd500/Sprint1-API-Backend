@@ -1,5 +1,7 @@
 package com.keyin.Sprint1_API.Aircraft;
 import com.keyin.Sprint1_API.Airport.Airport;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Aircraft {
@@ -10,12 +12,12 @@ public class Aircraft {
     private int numPassengers;
     private List<Airport> airports;
 
-    public Aircraft(int aircraft_id, String aircraftType, String airlineName, int numPassengers, List <Airport> airports){
+    public Aircraft(int aircraft_id, String aircraftType, String airlineName, int numPassengers, List<Airport> airports){
         this.aircraft_id = aircraft_id;
         this.aircraftType = aircraftType;
         this.airlineName = airlineName;
         this.numPassengers = numPassengers;
-        this.airports = airports;
+        this.airports = (airports != null) ? airports: new ArrayList<>();
     }
 
     public int getAircraft_id() {

@@ -57,6 +57,30 @@ public class AircraftService {
         return aircraftToCreate;
     }
 
+    public Aircraft addAirportToAircraft(int aircraftId, Airport airport) {
+        if (aircraftId >= 1 && aircraftId <= aircraftList.size()){
+            for (Aircraft aircraft : aircraftList) {
+                if (aircraft.getAircraft_id() == aircraftId) {
+                    Airport airportToAdd = checkAirport(airport);
+                    if(!inAircraftAirportList(aircraft.getAirports(), airportToAdd)){
+                    aircraft.getAirports().add(airportToAdd);
+                    return aircraft;
+                    }
+                }
+            }
+        }
+        throw new NoSuchElementException(" An aircraft with that ID was not found.");
+    }
+
+    private boolean inAircraftAirportList(List<Airport> aircraftAirportList, Airport airport) {
+        for (Airport aircraftAirport : aircraftAirportList) {
+            if (airport.getCode().equalsIgnoreCase(aircraftAirport.getCode())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private Airport checkAirport(Airport airport) {
         Airport existingAirport = null;
         if (airport.getAirport_id() > 0) {
@@ -79,8 +103,31 @@ public class AircraftService {
         }
     }
 
+    public List<Airport> getAllAirportsUsedBySpecificAircraftId(Integer aircraftId) {
+        if (aircraftId >= 1 && aircraftId <= aircraftList.size()) {
+            return aircraftList.get(aircraftId - 1).getAirports();
+        } else {
+            throw new NoSuchElementException("Aircraft ID " + aircraftId + " was not found.");
+        }
+    }
+
     public Aircraft updateAircraft(Integer index, Aircraft updatedAircraft){
         Aircraft aircraftToUpdate = aircraftList.get(index);
+        aircraftToUpdate.setAircraftType(updatedAircraft.getAircraftType());
+        aircraftToUpdate.setAirlineName(updatedAircraft.getAirlineName());
+        aircraftToUpdate.setNumPassengers(updatedAircraft.getNumPassengers());
+        if (updatedAircraft.getAirports() != null) {
+            List<Airport> updatedAirports = new ArrayList<>();
+            for (Airport airport : updatedAircraft.getAirports()) {
+                updatedAirports.add(checkAirport(airport));
+            }
+            aircraftToUpdate.setAirports(updatedAirports);
+        }
+        return aircraftToUpdate;
+    }
+
+    public Aircraft updateAircraftByAircraftId(Integer aircraftId, Aircraft updatedAircraft){
+        Aircraft aircraftToUpdate = aircraftList.get(aircraftId - 1);
         aircraftToUpdate.setAircraftType(updatedAircraft.getAircraftType());
         aircraftToUpdate.setAirlineName(updatedAircraft.getAirlineName());
         aircraftToUpdate.setNumPassengers(updatedAircraft.getNumPassengers());
@@ -103,4 +150,15 @@ public class AircraftService {
             throw new IndexOutOfBoundsException("Index " + index + " is out of bounds.");
         }
     }
+
+    public Aircraft deleteAircraftByAircraftId(Integer aircraftId) {
+        if (aircraftId >= 1 && aircraftId <= aircraftList.size()) {
+            Aircraft aircraftToRemove = aircraftList.get(aircraftId - 1);
+            aircraftList.remove(aircraftToRemove);
+            return aircraftToRemove;
+        } else {
+            throw new NoSuchElementException("Aircraft ID " + aircraftId + " was not found.");
+        }
+    }
+
 }
