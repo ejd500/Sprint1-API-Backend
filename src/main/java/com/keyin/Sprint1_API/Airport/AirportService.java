@@ -1,8 +1,10 @@
 package com.keyin.Sprint1_API.Airport;
 
+import com.keyin.Sprint1_API.Aircraft.AircraftService;
 import com.keyin.Sprint1_API.City.City;
 import com.keyin.Sprint1_API.City.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,6 +18,11 @@ public class AirportService {
 
     @Autowired
     private CityService cityService;
+
+    @Autowired
+    @Lazy
+    private AircraftService aircraftService;
+
 
     private List<Airport> airportList = new ArrayList<>();
 
@@ -83,6 +90,7 @@ public class AirportService {
         if (index >= 0 && index < airportList.size()) {
             Airport airportToRemove = airportList.get(index);
             airportList.remove(airportToRemove);
+            aircraftService.removeAirportFromAllAircraftAirportList(airportToRemove);
             return airportToRemove;
         } else {
             throw new NoSuchElementException("Index " + index + " is out of bounds.");
@@ -93,6 +101,7 @@ public class AirportService {
         if (airport_id >= 1 && airport_id <= airportList.size()) {
             Airport airportToRemove = airportList.get(airport_id - 1);
             airportList.remove(airportToRemove);
+            aircraftService.removeAirportFromAllAircraftAirportList(airportToRemove);
             return airportToRemove;
         } else {
             throw new NoSuchElementException("Airport ID " + airport_id + " was not found.");
