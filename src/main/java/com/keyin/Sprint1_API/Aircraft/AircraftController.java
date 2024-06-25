@@ -30,9 +30,14 @@ public class AircraftController {
         return aircraftService.getAircraftByAircraftId(aircraftId);
     }
 
-    @GetMapping("aircraft/{index}/airports")
+    @GetMapping("aircraft/{index}/airport")
     public List<Airport> getAllAirportsUsedBySpecificAircraft(@PathVariable Integer index){
-        return this.aircraftService.getAllAirportsUsedBySpecificAircraft(index);
+        return aircraftService.getAllAirportsUsedBySpecificAircraft(index);
+    }
+
+    @GetMapping("aircraft/id/{airportId}/airport")
+    public List<Airport> getAllAirportsUsedBySpecificAircraftId(@PathVariable Integer aircraftId){
+        return aircraftService.getAllAirportsUsedBySpecificAircraftId(aircraftId);
     }
 
     @PostMapping("aircraft")
@@ -40,13 +45,29 @@ public class AircraftController {
         return aircraftService.createAircraft(newAircraft);
     }
 
+    @PostMapping("aircraft/id/{aircraftId}")
+    public Aircraft addAirportToAircraft(@PathVariable Integer aircraftId, @RequestBody Airport airport){
+        return aircraftService.addAirportToAircraft(aircraftId, airport);
+    }
+
     @PutMapping("aircraft/{index}")
     public Aircraft updateAircraft(@PathVariable Integer index, @RequestBody Aircraft updatedAircraft){
         return aircraftService.updateAircraft(index, updatedAircraft);
+    }
+
+    @PutMapping("aircraft/id/{aircraftId}")
+    public Aircraft updateAircraftByAircraftId(@PathVariable Integer aircraftId, @RequestBody Aircraft updatedAircraft){
+        return aircraftService.updateAircraftByAircraftId(aircraftId, updatedAircraft);
     }
 
     @DeleteMapping("aircraft/{index}")
     public Aircraft deleteAircraft(@PathVariable Integer index){
         return aircraftService.deleteAircraft(index);
     }
+
+    @DeleteMapping("aircraft/id/{aircraftId}")
+    public Aircraft deleteAircraftByAircraftId(@PathVariable Integer aircraftId){
+        return aircraftService.deleteAircraftByAircraftId(aircraftId);
+    }
 }
+
