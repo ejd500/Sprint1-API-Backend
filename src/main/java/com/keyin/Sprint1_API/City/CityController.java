@@ -31,7 +31,22 @@ public class CityController {
     }
 
     @DeleteMapping("city/{index}")
-    public void deleteCity(@PathVariable Integer index) {
-        cityService.deleteCity(index);
+    public void deleteCityByIndex(@PathVariable Integer index) {
+        cityService.deleteCityByIndex(index);
+    }
+
+    @GetMapping("city/id/{city_id}")
+    public City getCityById(@PathVariable Integer city_id){
+        return cityService.getCityById(city_id);
+    }
+
+    @PutMapping("city/id/{city_id}")
+    public City updateCityById(@PathVariable Integer city_id, @RequestBody City updatedCity){
+        return cityService.updateCityById(city_id, updatedCity);
+    }
+
+    @DeleteMapping("city/id/{city_id}")
+    public void deleteCityById(@PathVariable Integer city_id){
+        cityService.deleteCityById(city_id);
     }
 }
