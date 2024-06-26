@@ -1,5 +1,6 @@
 package com.keyin.Sprint1_API.City;
 
+import com.keyin.Sprint1_API.Passenger.Passenger;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -41,8 +42,39 @@ public class CityService {
         return cityToUpdate;
     }
 
-    public void deleteCity(int index) {
+    public void deleteCityByIndex(int index) {
         cities.remove(index);
     }
 
+    public City getCityById(Integer cityId) {
+        for(City city : cities){
+            if (city.getCity_id() == cityId){
+                return city;
+            }
+        }
+        System.out.println("No such ID available.");
+        return null;
+    }
+
+    public City updateCityById(Integer cityId, City updatedCity) {
+        for(City city: cities){
+            if(city.getCity_id() == cityId){
+                city.setName(updatedCity.getName());
+                city.setProvince(updatedCity.getProvince());
+                city.setPopulation(updatedCity.getPopulation());
+                return city;
+            }
+        }
+        System.out.println("No such ID available to update.");
+        return null;
+    }
+
+    public void deleteCityById(Integer cityId) {
+        for(City city:cities){
+            if(city.getCity_id() == cityId){
+                cities.remove(city);
+                return;
+            }
+        }
+    }
 }
