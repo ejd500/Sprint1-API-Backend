@@ -21,7 +21,7 @@ public class Aircraft {
         this.airlineName = airlineName;
         this.numPassengers = numPassengers;
         this.airports = (airports != null) ? airports: new ArrayList<>();
-        this.passengers = passengers;
+        this.passengers = (passengers != null)? passengers : new ArrayList<>();
     }
 
     public int getAircraft_id() {
