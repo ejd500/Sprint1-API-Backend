@@ -1,8 +1,12 @@
 package com.keyin.Sprint1_API.Passenger;
 
+import com.keyin.Sprint1_API.Aircraft.Aircraft;
+import com.keyin.Sprint1_API.Aircraft.AircraftService;
+import com.keyin.Sprint1_API.Airport.Airport;
 import com.keyin.Sprint1_API.City.City;
 import com.keyin.Sprint1_API.City.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,6 +21,9 @@ public class PassengerService {
 
     @Autowired
     private CityService cityService;
+    @Autowired
+    @Lazy
+    private AircraftService aircraftService;
 
     public Passenger createPassenger(Passenger newPassenger){
         for(Passenger passenger: passengers) {
@@ -82,10 +89,58 @@ public class PassengerService {
         for (Passenger passenger : passengers){
             if (passenger.getPassenger_id() == passenger_id){
                 passengers.remove(passenger);
+                removePassengerFromAircraftPassengerList(passenger_id);
+                return;
             }
         }
-
     }
+
+    private void removePassengerFromAircraftPassengerList(int passengerId) {
+        List<Aircraft> allAircraft = aircraftService.getAllAircraft();
+        for(Aircraft aircraft:allAircraft){
+            for(Passenger passenger: aircraft.getPassengers()){
+                if(passenger.getPassenger_id() == passengerId){
+                    aircraft.getPassengers().remove(passenger);
+                    return;
+                }
+            }
+        }
+    }
+
+    // Get a list of aircrafts that a passenger has travelled on.
+    public List<Aircraft> getAllAircraftAPassengerHasTravelledOn(Integer passengerId) {
+        List<Aircraft> listOfAircraftsAPassengerHasTravelledOn = new ArrayList<>();
+        List<Aircraft> allAircraft = aircraftService.getAllAircraft();
+        for(Aircraft aircraft : allAircraft){
+            List<Passenger> passengersInAircraft = aircraft.getPassengers();
+            for(Passenger passenger : passengersInAircraft){
+                if(passenger.getPassenger_id() == passengerId){
+                    listOfAircraftsAPassengerHasTravelledOn.add(aircraft);
+                }
+            }
+        }
+        return listOfAircraftsAPassengerHasTravelledOn;
+    }
+
+    // What airports have passengers used?
+    public List<Airport> getAllAirportsAPassengerHasUsed(Integer passengerId) {
+        List<Airport> listOfAirportsAPassengerHasUsed = new ArrayList<>();
+        List<Aircraft> allAircraft = aircraftService.getAllAircraft();
+        for(Aircraft aircraft : allAircraft){
+            List<Passenger> passengersInAircraft = aircraft.getPassengers();
+            for(Passenger passenger : passengersInAircraft){
+                if(passenger.getPassenger_id() == passengerId){
+                    List<Airport> airportsAPassengerUsed = aircraft.getAirports();
+                    listOfAirportsAPassengerHasUsed.addAll(airportsAPassengerUsed);
+
+                }
+            }
+        }
+        return listOfAirportsAPassengerHasUsed;
+    }
+
+
+
 
 
 }

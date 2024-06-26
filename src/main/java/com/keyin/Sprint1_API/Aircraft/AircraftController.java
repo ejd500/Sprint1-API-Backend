@@ -1,6 +1,7 @@
 package com.keyin.Sprint1_API.Aircraft;
 
 import com.keyin.Sprint1_API.Airport.Airport;
+import com.keyin.Sprint1_API.Passenger.Passenger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.*;
@@ -45,11 +46,6 @@ public class AircraftController {
         return aircraftService.createAircraft(newAircraft);
     }
 
-    @PostMapping("aircraft/id/{aircraftId}")
-    public Aircraft addAirportToAircraft(@PathVariable Integer aircraftId, @RequestBody Airport airport){
-        return aircraftService.addAirportToAircraft(aircraftId, airport);
-    }
-
     @PutMapping("aircraft/{index}")
     public Aircraft updateAircraft(@PathVariable Integer index, @RequestBody Aircraft updatedAircraft){
         return aircraftService.updateAircraft(index, updatedAircraft);
@@ -69,5 +65,21 @@ public class AircraftController {
     public Aircraft deleteAircraftByAircraftId(@PathVariable Integer aircraftId){
         return aircraftService.deleteAircraftByAircraftId(aircraftId);
     }
+
+    @PostMapping("add/airport/to/aircraft/id/{aircraftId}")
+    public Aircraft addAirportToAircraft(@PathVariable Integer aircraftId, @RequestBody Airport airport){
+        return aircraftService.addAirportToAircraft(aircraftId, airport);
+    }
+
+    @PostMapping("add/passenger/to/aircraft/id/{aircraftId}")
+    public Aircraft addPassengerToAircraft(@PathVariable Integer aircraftId, @RequestBody Passenger passenger){
+        return aircraftService.addPassengerToAircraft(aircraftId, passenger);
+    }
+
+    @DeleteMapping("delete/passenger/id/{passengerId}/from/aircraft/id/{aircraftId}")
+    public Aircraft deletePassengerFromAircraft(@PathVariable Integer passengerId, @PathVariable Integer aircraftId){
+        return aircraftService.deletePassengerFromAircraft(passengerId, aircraftId);
+    }
+
 }
 

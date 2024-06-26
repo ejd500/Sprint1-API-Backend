@@ -68,7 +68,7 @@ public class AirportService {
         return airportList;
     }
 
-    public Airport updateAirport(Integer index, Airport updatedAirport){
+    public Airport updateAirportByIndex(Integer index, Airport updatedAirport){
         Airport airportToUpdate = airportList.get(index);
         airportToUpdate.setName(updatedAirport.getName());
         airportToUpdate.setCode(updatedAirport.getCode());
@@ -86,7 +86,7 @@ public class AirportService {
         return airportToUpdate;
     }
 
-    public Airport deleteAirport(Integer index) {
+    public Airport deleteAirportByIndex(Integer index) {
         if (index >= 0 && index < airportList.size()) {
             Airport airportToRemove = airportList.get(index);
             airportList.remove(airportToRemove);

@@ -24,11 +24,11 @@ public class AircraftService {
 
     private List<Aircraft> aircraftList = new ArrayList<>();
 
-    public List<Aircraft> getAllAircraft(){
+    public List<Aircraft> getAllAircraft() {
         return aircraftList;
     }
 
-    public Aircraft getAircraft(Integer index){
+    public Aircraft getAircraft(Integer index) {
         if (index >= 0 && index < aircraftList.size()) {
             return aircraftList.get(index);
         } else {
@@ -36,7 +36,7 @@ public class AircraftService {
         }
     }
 
-    public Aircraft getAircraftByAircraftId(int aircraftId){
+    public Aircraft getAircraftByAircraftId(int aircraftId) {
         if (aircraftId >= 1 && aircraftId <= aircraftList.size()) {
             return aircraftList.get(aircraftId - 1);
         } else {
@@ -47,7 +47,7 @@ public class AircraftService {
     public Aircraft createAircraft(Aircraft newAircraft) {
         for (Aircraft aircraft : aircraftList) {
             if (aircraft.getAircraftType().equalsIgnoreCase(newAircraft.getAircraftType()) &&
-                    aircraft.getAirlineName().equals(newAircraft.getAirlineName())){
+                    aircraft.getAirlineName().equals(newAircraft.getAirlineName())) {
                 return aircraft;
             }
         }
@@ -59,7 +59,7 @@ public class AircraftService {
         newAircraft.setAirports(airportList);
 
         List<Passenger> passengerList = new ArrayList<>();
-        for(Passenger passenger : newAircraft.getPassengers()){
+        for (Passenger passenger : newAircraft.getPassengers()) {
             Passenger newPassenger = checkPassenger(passenger);
             passengerList.add(newPassenger);
         }
@@ -81,15 +81,15 @@ public class AircraftService {
             return passengerService.createPassenger(passenger);
         }
     }
-  
+
     public Aircraft addAirportToAircraft(int aircraftId, Airport airport) {
-        if (aircraftId >= 1 && aircraftId <= aircraftList.size()){
+        if (aircraftId >= 1 && aircraftId <= aircraftList.size()) {
             for (Aircraft aircraft : aircraftList) {
                 if (aircraft.getAircraft_id() == aircraftId) {
                     Airport airportToAdd = checkAirport(airport);
-                    if(!inAircraftAirportList(aircraft.getAirports(), airportToAdd)){
-                    aircraft.getAirports().add(airportToAdd);
-                    return aircraft;
+                    if (!inAircraftAirportList(aircraft.getAirports(), airportToAdd)) {
+                        aircraft.getAirports().add(airportToAdd);
+                        return aircraft;
                     }
                 }
             }
@@ -136,7 +136,7 @@ public class AircraftService {
         }
     }
 
-    public Aircraft updateAircraft(Integer index, Aircraft updatedAircraft){
+    public Aircraft updateAircraft(Integer index, Aircraft updatedAircraft) {
         Aircraft aircraftToUpdate = aircraftList.get(index);
         aircraftToUpdate.setAircraftType(updatedAircraft.getAircraftType());
         aircraftToUpdate.setAirlineName(updatedAircraft.getAirlineName());
@@ -151,7 +151,7 @@ public class AircraftService {
         return aircraftToUpdate;
     }
 
-    public Aircraft updateAircraftByAircraftId(Integer aircraftId, Aircraft updatedAircraft){
+    public Aircraft updateAircraftByAircraftId(Integer aircraftId, Aircraft updatedAircraft) {
         Aircraft aircraftToUpdate = aircraftList.get(aircraftId - 1);
         aircraftToUpdate.setAircraftType(updatedAircraft.getAircraftType());
         aircraftToUpdate.setAirlineName(updatedAircraft.getAirlineName());
@@ -200,5 +200,43 @@ public class AircraftService {
     }
 
 
+    public Aircraft addPassengerToAircraft(Integer aircraftId, Passenger passenger) {
+        if (aircraftId >= 1 && aircraftId <= aircraftList.size()) {
+            for (Aircraft aircraft : aircraftList) {
+                if (aircraft.getAircraft_id() == aircraftId) {
+                    Passenger passengerToAdd = checkPassenger(passenger);
+                    if (!inAircraftPassengerList(aircraft.getPassengers(), passengerToAdd)) {
+                        aircraft.getPassengers().add(passengerToAdd);
+                        return aircraft;
+                    } else {
+                        throw new RuntimeException("Passenger already in list of passengers on aircraft.");
+                    }
+                }
+            }
+        }
+        throw new NoSuchElementException(" An aircraft with that ID was not found.");
+    }
 
+    private boolean inAircraftPassengerList(List<Passenger> aircraftPassengerList, Passenger passenger) {
+        for(Passenger aircraftPassenger : aircraftPassengerList){
+            if(passenger.getPassenger_id() == aircraftPassenger.getPassenger_id()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Aircraft deletePassengerFromAircraft(Integer passengerId, Integer aircraftId) {
+        for(Aircraft aircraft: aircraftList){
+            if(aircraft.getAircraft_id() == aircraftId){
+                for(Passenger passenger : aircraft.getPassengers()){
+                    if(passenger.getPassenger_id() == passengerId){
+                        aircraft.getPassengers().remove(passenger);
+                        return aircraft;
+                    }
+                }
+            }
+        }
+        throw new NoSuchElementException("Either no such aircraft ID or No such Passenger ID in aircraft.");
+    }
 }
