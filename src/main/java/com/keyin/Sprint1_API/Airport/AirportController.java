@@ -12,7 +12,7 @@ public class AirportController {
     @Autowired
     private AirportService airportService;
 
-    @GetMapping("airport")
+    @GetMapping("airports")
     public List<Airport> getAllAirports(){
         return airportService.getAllAirports();
     }
@@ -27,7 +27,7 @@ public class AirportController {
         return airportService.getAirportByAirportId(airport_id);
     }
 
-    @GetMapping("airport/city/{cityName}")
+    @GetMapping("airports/city/{cityName}")
     public List<Airport> getAirportsByCityName(@PathVariable String cityName) {
         return airportService.getAirportsByCityName(cityName);
     }
@@ -38,8 +38,8 @@ public class AirportController {
     }
 
     @PutMapping("airport/{index}")
-    public Airport updateAirport(@PathVariable Integer index, @RequestBody Airport updatedAirport){
-        return airportService.updateAirport(index, updatedAirport);
+    public Airport updateAirportByIndex(@PathVariable Integer index, @RequestBody Airport updatedAirport){
+        return airportService.updateAirportByIndex(index, updatedAirport);
     }
 
     @PutMapping("airport/id/{airport_id}")
@@ -48,8 +48,8 @@ public class AirportController {
     }
 
     @DeleteMapping("airport/{index}")
-    public Airport deleteAirport(@PathVariable Integer index){
-        return airportService.deleteAirport(index);
+    public Airport deleteAirportByIndex(@PathVariable Integer index){
+        return airportService.deleteAirportByIndex(index);
     }
 
     @DeleteMapping("airport/id/{airport_id}")

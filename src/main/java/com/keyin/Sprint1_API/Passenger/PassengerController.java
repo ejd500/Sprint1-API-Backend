@@ -1,6 +1,8 @@
 package com.keyin.Sprint1_API.Passenger;
 
 import com.keyin.Sprint1_API.Aircraft.Aircraft;
+import com.keyin.Sprint1_API.Aircraft.AircraftService;
+import com.keyin.Sprint1_API.Airport.Airport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,5 +42,17 @@ public class PassengerController {
     @DeleteMapping("passenger/id/{passenger_id}")
     public void deletePassengerByPassengerId(@PathVariable Integer passenger_id){
         passengerService.deletePassengerByPassengerId(passenger_id);
+    }
+
+//  List all aircraft passengers have travelled on
+    @GetMapping("passenger/id/{passengerId}/aircraft")
+    public List<Aircraft> getAllAircraftAPassengerHasTravelledOn(@PathVariable Integer passengerId){
+        return passengerService.getAllAircraftAPassengerHasTravelledOn(passengerId);
+    }
+
+//  What airports have passengers used?
+    @GetMapping("passenger/id/{passengerId}/airports")
+    public List<Airport> getAllAirportsAPassengerHasUsed(@PathVariable Integer passengerId){
+        return passengerService.getAllAirportsAPassengerHasUsed(passengerId);
     }
 }

@@ -15,11 +15,14 @@ public class CityService {
 
     public City createCity(City newCity){
         for(City city: cities){
-            if (city.getName().equalsIgnoreCase(newCity.getName())){
+            if (city.getName().equalsIgnoreCase(newCity.getName()) &&
+                    city.getProvince().equalsIgnoreCase(newCity.getProvince()) &&
+                    city.getPopulation() == newCity.getPopulation()
+            ){
                 return city;
             }
         }
-        City cityToCreate = new City(newCity.getName(), newCity.getProvince(), newCity.getPopulation(),nextId++);
+        City cityToCreate = new City(newCity.getName(), newCity.getProvince(), newCity.getPopulation(), nextId++);
         cities.add(cityToCreate);
         return cityToCreate;
     }
