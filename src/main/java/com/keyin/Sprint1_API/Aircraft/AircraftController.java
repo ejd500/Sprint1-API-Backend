@@ -36,7 +36,7 @@ public class AircraftController {
         return aircraftService.getAllAirportsUsedBySpecificAircraft(index);
     }
 
-    @GetMapping("aircraft/id/{airportId}/airport")
+    @GetMapping("aircraft/id/{aircraftId}/airport")
     public List<Airport> getAllAirportsUsedBySpecificAircraftId(@PathVariable Integer aircraftId){
         return aircraftService.getAllAirportsUsedBySpecificAircraftId(aircraftId);
     }

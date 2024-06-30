@@ -23,7 +23,6 @@ public class AirportService {
     @Lazy
     private AircraftService aircraftService;
 
-
     private List<Airport> airportList = new ArrayList<>();
 
     public Airport getAirport(Integer index){

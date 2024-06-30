@@ -119,7 +119,7 @@ public class AircraftService {
             return airportService.createAirport(airport);
         }
     }
-
+    // Get Airports used by a specific aircraft
     public List<Airport> getAllAirportsUsedBySpecificAircraft(Integer index) {
         if (index >= 0 && index < aircraftList.size()) {
             return aircraftList.get(index).getAirports();
@@ -127,7 +127,7 @@ public class AircraftService {
             throw new IndexOutOfBoundsException("Index " + index + " is out of bounds.");
         }
     }
-
+    // Get Airports used by a specific aircraft ID
     public List<Airport> getAllAirportsUsedBySpecificAircraftId(Integer aircraftId) {
         if (aircraftId >= 1 && aircraftId <= aircraftList.size()) {
             return aircraftList.get(aircraftId - 1).getAirports();
@@ -198,7 +198,6 @@ public class AircraftService {
             aircraft.setAirports(updatedAirports);
         }
     }
-
 
     public Aircraft addPassengerToAircraft(Integer aircraftId, Passenger passenger) {
         if (aircraftId >= 1 && aircraftId <= aircraftList.size()) {
